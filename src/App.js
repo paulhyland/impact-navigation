@@ -7,6 +7,7 @@ import {
   withStyles
 } from "@material-ui/core/styles";
 import TopHeader from "./Components/TopHeader";
+import LeftNav from "./Components/LeftNav";
 import LeftContentHeader from "./Components/LeftContentHeader";
 
 const green = createMuiTheme({
@@ -84,6 +85,7 @@ class App extends React.Component {
       selectedIndex: value
     });
   }
+
   render() {
     const value = this.state.selectedIndex;
     const dir = theme.direction;
@@ -97,13 +99,11 @@ class App extends React.Component {
               setViewState={this.setViewState.bind(this)}
               viewState={this.state.selectedIndex}
             />
-            {/* Comment goes here 
-<LeftNav
+            <LeftNav
               left={this.state.left}
               toggleDrawer={this.toggleDrawer.bind(this)}
               direction={dir}
             />
-            <Body viewState={value} />*/}
             <LeftContentHeader />
           </div>
         </MuiThemeProvider>

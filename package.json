@@ -1,7 +1,7 @@
 {
-  "name": "impact-navigation",
+  "name": "impact-navigation-plus",
   "version": "1.0.0",
-  "description": "Contains all navigation elements, interacting.",
+  "description": "Contains all navigation elements, interacting. Now including Drawers.",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
