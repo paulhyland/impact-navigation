@@ -1,5 +1,7 @@
 import React from "react";
-import Drawer from "@material-ui/core/Drawer";
+{
+  /*import Drawer from "@material-ui/core/Drawer";*/
+}
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { fade } from "@material-ui/core/styles/colorManipulator";
@@ -23,48 +25,103 @@ import InputLabel from "@material-ui/core/InputLabel";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
+
+import TopAppBar, { TopAppBarFixedAdjust } from "@material/react-top-app-bar";
+import Drawer, {
+  DrawerAppContent,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle
+} from "@material/react-drawer";
+import "@material/react-drawer/dist/drawer.css";
+import QuickLinks from "./QuickLinks";
+
 const styles = theme => ({
   root: {
+    width: "100%"
+  },
+  container: {},
+  drawer: {
+    position: "absolute",
+    top: 40,
+    bottom: 0,
+    height: "calc(100% - 40px)"
+  },
+  drawerContainer: {
+    display: "flex",
+    flexDirection: "row",
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
     width: "100%"
   },
   drawerDiv: {
     width: 250,
     backgroundColor: theme.palette.common.white,
-    height: "100vh"
+    flexGrow: 1,
+    display: "flex",
+    flexDirection: "column",
+    minHeight: 0,
+    marginBottom: "0"
   },
-  textField: {
-    margin: 5
+  searchBox: {
+    margin: "5px 4px 5px 7px ",
+    padding: "2px 4px",
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "#e1e1e1",
+    borderRadius: 0
+  },
+  searchInput: {
+    flex: 1
+  },
+  iconButton: {
+    padding: 10
+  },
+  listItemIcon: {
+    margin: 0
   },
   direction: {
     rtl: theme.direction
   },
   item: {
     "&:hover": {
-      backgroundColor: fade(theme.palette.primary.main, 0.25)
+      backgroundColor: "rgba(249,206,0,0.3)"
     },
     "&$selected, &$selected:hover": {
-      backgroundColor: theme.palette.action.selected
+      backgroundColor: "#f9be00"
     }
-  },
-  quickLinksText: {
-    "&:selected": {
-      backgroundColor: theme.palette.action.selected
-    }
-  },
-  quickLinks: {
-    bottom: 0,
-    position: "absolute"
   }
 });
 
 function LeftNav(props) {
   const { classes } = props;
   const leftList = (
-    <List>
-      {["5 year plan", "10 year plan", "15 year plan"].map((text, index) => (
+    <List style={{ flexGrow: 1, overflow: "auto", minHeight: 0 }}>
+      {[
+        "5 year plan",
+        "10 year plan",
+        "15 year plan",
+        "10 year plan",
+        "15 year plan",
+        "10 year plan",
+        "15 year plan",
+        "10 year plan",
+        "15 year plan",
+        "10 year plan",
+        "15 year plan",
+        "10 year plan",
+        "15 year plan",
+        "10 year plan",
+        "15 year plan"
+      ].map((text, index) => (
         <ListItem button key={text} className={classes.item}>
           <ListItemText primary={text} />
-          <ListItemIcon>
+          <ListItemIcon className={classes.listItemIcon}>
             <ChevronRightIcon />
           </ListItemIcon>
         </ListItem>
@@ -84,32 +141,6 @@ function LeftNav(props) {
     </List>
   );
 
-  const fullList = (
-    <div className={classes.fullList}>
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-
   let list = "";
   if (props.direction === "rtl") {
     list = rightList;
@@ -122,49 +153,30 @@ function LeftNav(props) {
   const t24 = props.dir;
   return (
     <div className={classes.root}>
-      <Drawer open={props.left} onClose={props.toggleDrawer("left", false)}>
-        <div className={classes.drawerDiv}>
-          <TextField
-            className={classes.textField}
-            label="Filter"
-            id="mui-theme-provider-standard-input"
-            fillWidth
-            margin="normal"
-            variant="outlined"
-          />
+      <TopAppBarFixedAdjust>
+        <Drawer className={classes.drawer} dismissible open={props.isOpen}>
+          <div className={classes.drawerContainer}>
+            <div className={classes.drawerDiv}>
+              <Paper className={classes.searchBox} elevation={1}>
+                <IconButton className={classes.iconButton} aria-label="Search">
+                  <SearchIcon />
+                </IconButton>
+                <InputBase className={classes.searchInput} />
+                <IconButton className={classes.iconButton} aria-label="Search">
+                  <ClearIcon />
+                </IconButton>
+              </Paper>
 
-          <Divider />
-          {list}
-          <div
-            style={{
-              position: "absolute",
-              bottom: 0,
-              width: "100%",
-              overflow: "hidden"
-            }}
-          >
-            <Divider />
+              <Divider />
+              {list}
 
-            <List
-              className={styles.quickLinks}
-              subheader={
-                <ListSubheader component="div">Quick Links</ListSubheader>
-              }
-            >
-              {["Add New Goal", "Add New Result"].map((text, index) => (
-                <ListItem
-                  button
-                  key={text}
-                  className={styles.quickLinksText}
-                  selected={index + (1 % 1) === 0 ? true : false}
-                >
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
+              <Divider />
+
+              <QuickLinks />
+            </div>
           </div>
-        </div>
-      </Drawer>
+        </Drawer>
+      </TopAppBarFixedAdjust>
     </div>
   );
 }

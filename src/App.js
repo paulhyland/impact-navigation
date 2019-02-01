@@ -77,7 +77,7 @@ class App extends React.Component {
 
   toggleDrawer = (side, open) => () => {
     this.setState({
-      [side]: open
+      isOpen: !this.state.isOpen
     });
   };
   setViewState(value) {
@@ -100,6 +100,7 @@ class App extends React.Component {
               viewState={this.state.selectedIndex}
             />
             <LeftNav
+              isOpen={this.state.isOpen}
               left={this.state.left}
               toggleDrawer={this.toggleDrawer.bind(this)}
               direction={dir}
