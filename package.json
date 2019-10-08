@@ -1,7 +1,7 @@
 {
-  "name": "impact-navigation-plus",
+  "name": "impact-nav-accordion",
   "version": "1.0.0",
-  "description": "Contains all navigation elements, interacting. Now including Drawers.",
+  "description": "Contains all navigation elements, interacting. Now including Accordion on left.",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
